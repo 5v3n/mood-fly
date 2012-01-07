@@ -29,46 +29,41 @@ void loop() {
   if (client.available()) {
     
     if(client.find("neutral\":")){
-      //blue = readByteFromCharArray();
       char buf[4];
       client.readBytes(buf, 3);
       blue = atoi(buf);
       Serial.println();
       Serial.print("blue: ");
-      Serial.println((int)blue);
+      Serial.println(blue);
     }
     
     if(client.find("positive\":"))
     {
-      
-      //green = readByteFromCharArray();
       char buf[4];
       client.readBytes(buf, 3);
       green=atoi(buf);
       Serial.println();
       Serial.print("green: ");
-      Serial.println((int)green);
-      
+      Serial.println(green);   
     }
  
     if(client.find("negative\":"))
     {
       char buf[4];
       client.readBytes(buf, 3);
-      red = atoi(buf);//readByteFromCharArray();
+      red = atoi(buf);
       Serial.println();
       Serial.print("red: ");
-      Serial.println((int)red);
-      
+      Serial.println(red);
     }
     
     client.stop();
     
     sum = red+green+blue;
-    if (sum != 0){
-      led_red= 255*red/sum;
-      led_green= 255*green/sum;
-      led_blue= 255*blue/sum;
+    if (sum != 0){    
+      led_red = (255*(red*1.0/sum));
+      led_green = (255*(green*1.0/sum));
+      led_blue = (255*(blue*1.0/sum));
     }
     
      // set the brightness of the LED:
@@ -84,11 +79,11 @@ void loop() {
     Serial.println("disconnecting.");
     client.stop();
     Serial.println("red:");
-    Serial.println((int)led_red);
+    Serial.println((byte)led_red);
     Serial.println("green:");
-    Serial.println((int)led_green);
+    Serial.println((byte)led_green);
     Serial.println("blue:");
-    Serial.println((int)led_blue);
+    Serial.println((byte)led_blue);
     Serial.println();
     Serial.println("connecting...");
 
