@@ -2,7 +2,7 @@
 
 ## Overview
 
-Displayig the mood of a topic on Twitter using green for positive, blue for neutral and red for negative sentiments.
+Displayig the mood of a topic on Twitter using green for positive, blue for neutral and red for negative sentiments. See it [in action here](http://vimeo.com/34759041).
 
 ## Details
 
