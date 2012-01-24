@@ -14,7 +14,7 @@ char led_red=0, led_green=0, led_blue=0;
 
 void setup() { 
   Serial.begin(9600);
-
+  WiFly.setUart(&Serial);
   WiFly.begin();
   
   if (!WiFly.join(ssid, passphrase)) {
@@ -95,7 +95,7 @@ void loop() {
     Serial.println("connecting...");
 
   if (client.connect()) {
-    Serial.println("connected");
+    //Serial.println("connected");
 
     char topicToAnalyze[] = "fail";
 
@@ -103,11 +103,12 @@ void loop() {
     //use yahoo yql web api to do the numbercrunching - arduino is too slow to process tweet sentiments results locally (70s+)
     request += "http://query.yahooapis.com/v1/public/yql?q=SELECT%20positive,%20negative,%20neutral%20FROM%20json%20WHERE%20url%20%3D%20%22http://data.tweetsentiments.com:8080/api/search.json%3Ftopic%3D";
     request += topicToAnalyze;
-    request += "%22&format=json";
+    request += "%22&format=json&tsecs=";
+    request += millis()/1000; // cache bust
     request += " HTTP/1.0";
-    Serial.println( request );
+    //Serial.println( request );
     // do the HTTP GET request
-    client.println( request );		
+    client.println( request );    
     client.println();
  
   } else {
